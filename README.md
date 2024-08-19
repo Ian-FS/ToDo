@@ -1,50 +1,79 @@
-# React + TypeScript + Vite
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Todo List - Ians
 
-Currently, two official plugins are available:
+Este projeto é uma aplicação de lista de tarefas (_To-Do List_) desenvolvida com **React** e **TypeScript**. O objetivo é oferecer uma interface simples e eficiente para gerenciar suas tarefas diárias.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- **React**: Biblioteca para construção de interfaces.
+- **TypeScript**: Superset do JavaScript com tipagem estática.
+- **Vite**: Ferramenta para criação e build de projetos React com alta performance.
+- **CSS Modules**: Para estilização encapsulada e modular.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 📝 Funcionalidades
 
-- Configure the top-level `parserOptions` property like this:
+- **Adicionar Tarefas**: Permite adicionar novas tarefas com título e descrição.
+- **Marcar como Concluída**: Indique o status de conclusão das tarefas.
+- **Excluir Tarefas**: Remova tarefas da lista com facilidade.
+- **Visual Limpo e Responsivo**: Design simples para foco na produtividade.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📂 Estrutura de Diretórios
+
+```plaintext
+src/
+├── assets/                   # Ícones e imagens
+│   ├── Clipboard.svg
+│   ├── rocket.svg
+│   └── todo.svg
+├── components/               # Componentes reutilizáveis
+│   ├── Header.module.css     # Estilos do cabeçalho
+│   ├── Header.tsx            # Componente do cabeçalho
+│   ├── Task.module.css       # Estilos para o componente de tarefa
+│   ├── Task.tsx              # Componente de exibição de tarefa
+│   ├── TaskForm.module.css   # Estilos do formulário de tarefa
+│   └── TaskForm.tsx          # Componente de formulário para adicionar/editar tarefas
+├── App.module.css            # Estilos globais da aplicação
+├── App.tsx                   # Componente principal
+├── global.css                # Estilos globais
+├── main.tsx                  # Ponto de entrada da aplicação
+└── vite-env.d.ts             # Declarações de tipos para o Vite
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 📦 Como Executar o Projeto
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. Clone o repositório:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   ```bash
+   git clone https://github.com/seu-usuario/todo-list-ians.git
+   ```
+
+2. Navegue até o diretório do projeto:
+
+   ```bash
+   cd todo-list-ians
+   ```
+
+3. Instale as dependências:
+
+   ```bash
+   npm install
+   ```
+
+4. Inicie a aplicação:
+
+   ```bash
+   npm run dev
+   ```
+
+## 🎯 Próximas Funcionalidades
+
+- Adicionar funcionalidade de edição de tarefas.
+- Implementar armazenamento em nuvem das tarefas.
+- Melhorar a experiência mobile com ajustes no layout.
+
+## 🖋️ Autor
+
+- [Ian França](https://github.com/Ian-FS)
+
+---
