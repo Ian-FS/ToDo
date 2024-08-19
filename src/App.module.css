@@ -1,0 +1,67 @@
+.main {
+  max-width: 736px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  padding: 0 2rem;
+}
+.wrapperTasks {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.tasksInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.createdTasks {
+  color: var(--blue);
+}
+.counterTasks {
+  background: var(--gray-400);
+  border-radius: 99px;
+  padding: 0.125rem 0.5rem;
+}
+.completedTasks {
+  color: var(--purple);
+}
+
+.noTasksList {
+  border-top: 1px #333333 solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 1.5rem;
+}
+.tasksList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.textInfo {
+  text-align: center;
+  color: var(--gray-300);
+}
+.textInfo p:first-child {
+  font-weight: 700;
+}
+
+@media (max-width: 500px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+@media (max-width: 420px) {
+  html {
+    font-size: 81.24%;
+  }
+}
+@media (max-width: 390px) {
+  html {
+    font-size: 75%;
+  }
+}

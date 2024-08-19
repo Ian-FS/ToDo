@@ -1,0 +1,20 @@
+.header {
+  background: var(--gray-700);
+  height: 12.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.logo h1 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--blue);
+}
+.logo h1 > span {
+  color: var(--purple);
+}

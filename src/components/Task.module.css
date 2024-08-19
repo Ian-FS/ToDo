@@ -1,0 +1,74 @@
+.task {
+  background: var(--gray-500);
+  border-radius: 0.5rem;
+  border: solid var(--gray-400) 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.taskInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: var(--gray-100);
+  font-size: 0.875rem;
+  margin-right: 1rem;
+}
+.taskInfo > p {
+  word-break: break-all;
+}
+.checkedTaskText {
+  text-decoration: line-through;
+  color: var(--gray-300);
+}
+.circleButton {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 0.25rem;
+}
+.uncheckedCircleButton {
+  border: 2px solid var(--blue);
+  background: transparent;
+  transition: 0.1s;
+}
+.uncheckedCircleButton:hover {
+  border-color: var(--blue-dark);
+  background: var(--blue-darkOpacity20);
+}
+.checkedCircleButton {
+  color: var(--gray-100);
+  background: var(--purple-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.1s;
+  border: none;
+  cursor: pointer;
+}
+.checkedCircleButton:hover {
+  background: var(--purple);
+}
+
+.trashButton {
+  color: var(--gray-300);
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.trashButton:hover {
+  color: var(--danger);
+  background: var(--gray-400);
+  border-radius: 0.25rem;
+  transition: 0.2s;
+}
