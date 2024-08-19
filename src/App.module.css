@@ -55,7 +55,7 @@
     font-size: 87.5%;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 400px) {
   html {
     font-size: 81.24%;
   }
