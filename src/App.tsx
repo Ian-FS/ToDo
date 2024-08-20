@@ -22,9 +22,9 @@ function App() {
     ]);
     setDescription('');
   }
-  function handleDeleteTask(deleteddescription: string) {
+  function handleDeleteTask(deletedDescription: string) {
     const newTaskList = taskList.filter(
-      (task) => task.description !== deleteddescription,
+      (task) => task.description !== deletedDescription,
     );
     setTaskList(newTaskList);
   }
@@ -37,6 +37,20 @@ function App() {
 
     setTaskList(newTaskList);
   }
+  function handleEditTask(
+    currentDescription: string,
+    updateDescription: string,
+  ) {
+    const newTaskList = taskList.map((task) =>
+      task.description === currentDescription
+        ? { ...task, description: updateDescription }
+        : task,
+    );
+
+    console.log(newTaskList);
+    setTaskList(newTaskList);
+  }
+
   return (
     <>
       <Header />
@@ -49,8 +63,10 @@ function App() {
         <div className={style.wrapperTasks}>
           <div className={style.tasksInfo}>
             <div className={style.createdTasks}>
-              Tarefas criadas{' '}
-              <span className={style.counterTasks}>{taskList.length}</span>
+              Pendentes{' '}
+              <span className={style.counterTasks}>
+                {taskList.filter((task) => task.isChecked === false).length}
+              </span>
             </div>
             <div className={style.completedTasks}>
               Concluídas{' '}
@@ -60,17 +76,41 @@ function App() {
             </div>
           </div>
           {taskList.length > 0 ? (
-            <div className={style.tasksList}>
-              {taskList.map((task) => (
-                <Task
-                  description={task.description}
-                  isChecked={task.isChecked}
-                  handleCheckTask={handleCheckTask}
-                  handleDeleteTask={handleDeleteTask}
-                  key={task.description}
-                />
-              ))}
-            </div>
+            <>
+              <div className={style.tasksList}>
+                {taskList
+                  .filter((task) => !task.isChecked)
+                  .map((task) => (
+                    <Task
+                      currentDescription={task.description}
+                      isChecked={task.isChecked}
+                      handleCheckTask={handleCheckTask}
+                      handleDeleteTask={handleDeleteTask}
+                      handleEditTask={handleEditTask}
+                      key={task.description}
+                      setDescription={setDescription}
+                    />
+                  ))}
+              </div>
+              {taskList.filter((task) => task.isChecked).length > 0 && (
+                <div className={style.dividesLine} />
+              )}
+              <div className={style.tasksList}>
+                {taskList
+                  .filter((task) => task.isChecked)
+                  .map((task) => (
+                    <Task
+                      currentDescription={task.description}
+                      isChecked={task.isChecked}
+                      handleCheckTask={handleCheckTask}
+                      handleDeleteTask={handleDeleteTask}
+                      handleEditTask={handleEditTask}
+                      key={task.description}
+                      setDescription={setDescription}
+                    />
+                  ))}
+              </div>
+            </>
           ) : (
             <div className={style.noTasksList}>
               <img src={clipboard} alt="" />

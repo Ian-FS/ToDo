@@ -17,6 +17,7 @@
 
   /* Feedback */
   --danger: #e25858;
+  --danger-dark: #e20858;
 }
 * {
   margin: 0;

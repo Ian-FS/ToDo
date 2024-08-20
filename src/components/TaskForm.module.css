@@ -12,11 +12,12 @@
   border-radius: 0.5rem;
   border: none;
   flex-grow: 1;
-  outline: red;
-  /* outline: none; */
 }
 .addTaskBar::placeholder {
   color: var(--gray-300);
+}
+.addTaskBar:focus {
+  outline: solid 2px var(--purple-dark);
 }
 .taskAddButton {
   background: var(--blue-dark);
@@ -36,5 +37,5 @@
   background: var(--blue);
 }
 .disabledTaskAddButton {
-  color: var(--blue);
+  color: var(--gray-300);
 }

@@ -4,24 +4,113 @@
   border: solid var(--gray-400) 1px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 1rem;
 }
 
 .taskInfo {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
   color: var(--gray-100);
   font-size: 0.875rem;
   margin-right: 1rem;
+  width: 100%;
 }
-.taskInfo > p {
+.containerTaskDescription {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  width: 100%;
+}
+.taskDescriptionInput {
   word-break: break-all;
+  flex: 1;
+  background: var(--gray-400);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  color: var(--gray-100);
+  outline: none;
 }
+.checkedTaskDescriptionInput {
+  background: var(--gray-500);
+}
+
+.taskDescriptionInput:focus {
+  outline: 2px solid var(--purple-dark);
+}
+.editDescriptionButton {
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+.enableEditButton {
+  background-color: var(--gray-500);
+  color: var(--gray-300);
+  transition: background-color 0.2s ease;
+}
+
+.disabledButton {
+  visibility: hidden;
+  width: 0;
+}
+.enableEditButton:hover {
+  background: var(--gray-400);
+  color: var(--blue);
+}
+
 .checkedTaskText {
   text-decoration: line-through;
   color: var(--gray-300);
+}
+.confirmOrCancelContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+.confirmButton {
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background: var(--blue);
+  color: var(--gray-100);
+  transition: background-color 0.3s ease;
+}
+.disabledConfirmButton {
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background: var(--blue);
+  color: var(--gray-300);
+}
+.confirmButton:hover {
+  background: var(--blue-dark);
+}
+.cancelButton {
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  background: var(--danger);
+  color: var(--gray-100);
+  transition: background-color 0.2s ease;
+}
+.cancelButton:hover {
+  color: var(--gray-100);
+  background: var(--danger-dark);
 }
 .circleButton {
   width: 1.5rem;
