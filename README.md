@@ -4,6 +4,10 @@
 
 Este projeto é uma aplicação de lista de tarefas (_To-Do List_) desenvolvida com **React** e **TypeScript**. O objetivo é oferecer uma interface simples e eficiente para gerenciar suas tarefas diárias.
 
+## 👨🏻‍💻 Deploy
+
+- https://to-do-ians.vercel.app/
+
 ## 🚀 Tecnologias Utilizadas
 
 - **React**: Biblioteca para construção de interfaces.
@@ -13,8 +17,9 @@ Este projeto é uma aplicação de lista de tarefas (_To-Do List_) desenvolvida 
 
 ## 📝 Funcionalidades
 
-- **Adicionar Tarefas**: Permite adicionar novas tarefas com título e descrição.
+- **Adicionar Tarefas**: Permite adicionar novas tarefas.
 - **Marcar como Concluída**: Indique o status de conclusão das tarefas.
+- **Editar Tarefas**: Edite as tarefas da lista com facilidade.
 - **Excluir Tarefas**: Remova tarefas da lista com facilidade.
 - **Visual Limpo e Responsivo**: Design simples para foco na produtividade.
 
@@ -68,7 +73,7 @@ src/
 
 ## 🎯 Próximas Funcionalidades
 
-- Adicionar funcionalidade de edição de tarefas.
+- Adicionar funcionalidade de edição de tarefas. ✅
 - Implementar armazenamento em nuvem das tarefas.
 - Melhorar a experiência mobile com ajustes no layout.
 
