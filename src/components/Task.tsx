@@ -8,20 +8,21 @@ import {
 import style from './Task.module.css';
 import { useState } from 'react';
 
+interface ITask {
+  id: string;
+  description: string;
+  done: boolean;
+}
+
 interface TaskProps {
-  currentDescription: string;
-  isChecked: boolean;
+  task: ITask;
   handleDeleteTask: (deletedTask: string) => void;
-  handleCheckTask: (description: string, isChecked: boolean) => void;
-  handleEditTask: (
-    currentDescription: string,
-    updateDescription: string,
-  ) => void;
+  handleCheckTask: (task: ITask, done: boolean) => void;
+  handleEditTask: (currentDescription: string, task: ITask) => void;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
 }
 export default function Task({
-  currentDescription,
-  isChecked,
+  task,
   handleCheckTask,
   handleDeleteTask,
   handleEditTask,
@@ -30,23 +31,23 @@ export default function Task({
   const [updateDescription, setUpdateDescription] = useState('');
 
   function handleEnableEdit() {
-    setUpdateDescription(currentDescription);
+    setUpdateDescription(task.description);
     setIsEdit(true);
   }
 
   return (
     <div className={style.task}>
       <div className={style.taskInfo}>
-        {isChecked ? (
+        {task.done ? (
           <button
-            onClick={() => handleCheckTask(currentDescription, isChecked)}
+            onClick={() => handleCheckTask(task, task.done)}
             className={`${style.circleButton} ${style.checkedCircleButton}`}
           >
             <Check size={14} weight="bold" />
           </button>
         ) : (
           <button
-            onClick={() => handleCheckTask(currentDescription, isChecked)}
+            onClick={() => handleCheckTask(task, task.done)}
             className={`${style.circleButton} ${style.uncheckedCircleButton}`}
             disabled={isEdit}
           />
@@ -57,11 +58,11 @@ export default function Task({
             autoFocus
             ref={(inputEl) => inputEl && inputEl.focus()}
             className={
-              isChecked
+              task.done
                 ? `${style.taskDescriptionInput} ${style.checkedTaskText} ${style.checkedTaskDescriptionInput}`
                 : `${style.taskDescriptionInput}`
             }
-            value={isEdit ? updateDescription : currentDescription}
+            value={isEdit ? updateDescription : task.description}
             onChange={(event) => setUpdateDescription(event.target.value)}
             disabled={!isEdit}
           />
@@ -71,7 +72,7 @@ export default function Task({
               <button
                 disabled={updateDescription === ''}
                 onClick={() => {
-                  handleEditTask(currentDescription, updateDescription);
+                  handleEditTask(updateDescription, task);
                   setIsEdit(false);
                 }}
                 className={
@@ -95,11 +96,11 @@ export default function Task({
             <button
               onClick={handleEnableEdit}
               className={
-                isChecked
+                task.done
                   ? `${style.editDescriptionButton} ${style.disabledButton}`
                   : `${style.editDescriptionButton} ${style.enableEditButton}`
               }
-              disabled={isChecked}
+              disabled={task.done}
             >
               <PencilSimple weight="fill" />
             </button>
@@ -108,7 +109,7 @@ export default function Task({
       </div>
       {!isEdit && (
         <button
-          onClick={() => handleDeleteTask(currentDescription)}
+          onClick={() => handleDeleteTask(task.id)}
           className={style.trashButton}
         >
           <Trash size={24} />

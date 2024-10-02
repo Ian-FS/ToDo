@@ -5,14 +5,15 @@ import Task from './components/Task';
 import { useEffect, useState } from 'react';
 import TaskForm from './components/TaskForm';
 import axios from 'axios';
-import { GOOGLE_SHEET_API_LINK } from './config/api';
 interface taskProps {
+  id: string;
   description: string;
-  isChecked: boolean;
+  done: boolean;
 }
-interface googleSheetDataProps {
+interface strapiDataProps {
+  documentId: string;
   description: string;
-  isChecked: string;
+  done: boolean;
 }
 
 function App() {
@@ -26,19 +27,24 @@ function App() {
   const [isSuccessfulDelete, setIsSuccessfulDelete] = useState(false);
 
   useEffect(() => {
-    axios.get(GOOGLE_SHEET_API_LINK).then((res) => {
-      const newTaskList = res.data.map((task: googleSheetDataProps) => {
-        return {
-          description: task.description,
-          isChecked: task.isChecked === 'TRUE',
-        } as taskProps;
+    axios
+      .get('https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks/')
+      .then((res) => {
+        const newTaskList = res.data.data.map((task: strapiDataProps) => {
+          return {
+            id: task.documentId,
+            description: task.description,
+            done: task.done,
+          };
+        });
+        console.log(res);
+        setTaskList(newTaskList);
+
+        setIsSuccessfulPost(false);
+        setIsSuccessfulPatchChecked(false);
+        setIsSuccessfulPatchDescription(false);
+        setIsSuccessfulDelete(false);
       });
-      setTaskList(newTaskList);
-      setIsSuccessfulPost(false);
-      setIsSuccessfulPatchChecked(false);
-      setIsSuccessfulPatchDescription(false);
-      setIsSuccessfulDelete(false);
-    });
   }, [
     isSuccessfulPost,
     isSuccessfulPatchChecked,
@@ -48,30 +54,44 @@ function App() {
 
   async function handleCreateTask(event: React.FormEvent) {
     event.preventDefault();
-    const newTask = { description: description, isChecked: 'false' };
+    const newTask = {
+      data: {
+        description: description,
+        done: false,
+      },
+    };
 
     await axios
-      .post(GOOGLE_SHEET_API_LINK, newTask)
-      .then((res) => res.status === 200 && setIsSuccessfulPost(true));
+      .post(
+        'https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks',
+        newTask,
+      )
+      .then((res) => res.status === 201 && setIsSuccessfulPost(true));
     setDescription('');
   }
-  async function handleDeleteTask(deletedDescription: string) {
+  async function handleDeleteTask(taskID: string) {
     await axios
       .delete(
-        `https://sheet.best/api/sheets/b0000182-2518-429c-b6a5-a9ad2070875f/description/*${deletedDescription}*`,
+        `https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks/${taskID}`,
       )
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 204) {
           console.log('deu certo');
           setIsSuccessfulDelete(true);
         }
       });
   }
-  async function handleCheckTask(description: string, isChecked: boolean) {
+  async function handleCheckTask(task: taskProps, done: boolean) {
+    const updateTask = {
+      data: {
+        done: !done,
+        description: task.description,
+      },
+    };
     await axios
-      .patch(
-        `https://sheet.best/api/sheets/b0000182-2518-429c-b6a5-a9ad2070875f/description/*${description}*`,
-        { isChecked: !isChecked ? 'TRUE' : 'FALSE' },
+      .put(
+        `https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks/${task.id}`,
+        updateTask,
       )
       .then((res) => {
         if (res.status === 200) {
@@ -80,14 +100,16 @@ function App() {
         }
       });
   }
-  async function handleEditTask(
-    currentDescription: string,
-    updateDescription: string,
-  ) {
+  async function handleEditTask(updateDescription: string, task: taskProps) {
     await axios
-      .patch(
-        `https://sheet.best/api/sheets/b0000182-2518-429c-b6a5-a9ad2070875f/description/*${currentDescription}*`,
-        { description: updateDescription },
+      .put(
+        `https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks/${task.id}`,
+        {
+          data: {
+            description: updateDescription,
+            done: task.done,
+          },
+        },
       )
       .then((res) => {
         if (res.status === 200) {
@@ -111,13 +133,13 @@ function App() {
             <div className={style.createdTasks}>
               Pendentes{' '}
               <span className={style.counterTasks}>
-                {taskList.filter((task) => task.isChecked === false).length}
+                {taskList.filter((task) => task.done === false).length}
               </span>
             </div>
             <div className={style.completedTasks}>
               Concluídas{' '}
               <span className={style.counterTasks}>
-                {taskList.filter((task) => task.isChecked).length}
+                {taskList.filter((task) => task.done).length}
               </span>
             </div>
           </div>
@@ -125,11 +147,10 @@ function App() {
             <>
               <div className={style.tasksList}>
                 {taskList
-                  .filter((task) => !task.isChecked)
+                  .filter((task) => !task.done)
                   .map((task) => (
                     <Task
-                      currentDescription={task.description}
-                      isChecked={task.isChecked}
+                      task={task}
                       handleCheckTask={handleCheckTask}
                       handleDeleteTask={handleDeleteTask}
                       handleEditTask={handleEditTask}
@@ -138,16 +159,15 @@ function App() {
                     />
                   ))}
               </div>
-              {taskList.filter((task) => task.isChecked).length > 0 && (
+              {taskList.filter((task) => task.done).length > 0 && (
                 <div className={style.dividesLine} />
               )}
               <div className={style.tasksList}>
                 {taskList
-                  .filter((task) => task.isChecked)
+                  .filter((task) => task.done)
                   .map((task) => (
                     <Task
-                      currentDescription={task.description}
-                      isChecked={task.isChecked}
+                      task={task}
                       handleCheckTask={handleCheckTask}
                       handleDeleteTask={handleDeleteTask}
                       handleEditTask={handleEditTask}
