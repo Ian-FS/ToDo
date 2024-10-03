@@ -28,7 +28,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks/')
+      .get('https://api-todo-list-production.up.railway.app/api/tasks')
       .then((res) => {
         const newTaskList = res.data.data.map((task: strapiDataProps) => {
           return {
@@ -63,7 +63,7 @@ function App() {
 
     await axios
       .post(
-        'https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks',
+        'https://api-todo-list-production.up.railway.app/api/tasks',
         newTask,
       )
       .then((res) => res.status === 201 && setIsSuccessfulPost(true));
@@ -72,7 +72,7 @@ function App() {
   async function handleDeleteTask(taskID: string) {
     await axios
       .delete(
-        `https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks/${taskID}`,
+        `https://api-todo-list-production.up.railway.app/api/tasks/${taskID}`,
       )
       .then((res) => {
         if (res.status === 204) {
@@ -90,7 +90,7 @@ function App() {
     };
     await axios
       .put(
-        `https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks/${task.id}`,
+        `https://api-todo-list-production.up.railway.app/api/tasks/${task.id}`,
         updateTask,
       )
       .then((res) => {
@@ -103,7 +103,7 @@ function App() {
   async function handleEditTask(updateDescription: string, task: taskProps) {
     await axios
       .put(
-        `https://blessed-darling-a54a6fe8b6.strapiapp.com/api/tasks/${task.id}`,
+        `https://api-todo-list-production.up.railway.app/api/tasks/${task.id}`,
         {
           data: {
             description: updateDescription,
