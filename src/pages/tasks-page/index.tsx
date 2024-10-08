@@ -10,13 +10,11 @@ interface taskProps {
   description: string;
   done: boolean;
   userID: string;
-  users_permissions_user: string;
 }
 interface strapiDataProps {
   documentId: string;
   description: string;
   done: boolean;
-  users_permissions_user: string;
 }
 
 export default function TasksPage() {

@@ -19,24 +19,24 @@ export default function LoginPage() {
         console.log('An error occurred:', error.response);
       });
   }
-  async function handleRegister() {
-    await axios
-      .post(
-        'https://api-todo-list-production.up.railway.app/api/auth/local/register',
-        {
-          username: 'iana',
-          email: 'iaan_franca.dev@outlook.com',
-          password: 'ian28199208',
-        },
-      )
-      .then((response) => {
-        // console.log('User profile', response.data.user);
-        console.log('User token', response.data.jwt);
-      })
-      .catch((error) => {
-        console.log('An error occurred:', error.response);
-      });
-  }
+  // async function handleRegister() {
+  //   await axios
+  //     .post(
+  //       'https://api-todo-list-production.up.railway.app/api/auth/local/register',
+  //       {
+  //         username: 'iana',
+  //         email: 'iaan_franca.dev@outlook.com',
+  //         password: 'ian28199208',
+  //       },
+  //     )
+  //     .then((response) => {
+  //       // console.log('User profile', response.data.user);
+  //       console.log('User token', response.data.jwt);
+  //     })
+  //     .catch((error) => {
+  //       console.log('An error occurred:', error.response);
+  //     });
+  // }
 
   return (
     <div className={style.main}>

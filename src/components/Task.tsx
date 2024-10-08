@@ -12,6 +12,7 @@ interface ITask {
   id: string;
   description: string;
   done: boolean;
+  userID: string;
 }
 
 interface TaskProps {
