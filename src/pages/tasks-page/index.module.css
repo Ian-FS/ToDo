@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 64px;
   padding: 0 2rem 2rem 2rem;
+  height: 100vh;
 }
 .wrapperTasks {
   display: flex;
