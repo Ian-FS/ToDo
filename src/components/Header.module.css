@@ -2,6 +2,7 @@
   max-width: 736px;
   margin: 0 auto;
   padding: 2rem 2rem 4rem;
+  background: var(--gray-600);
 }
 .logo {
   display: flex;
