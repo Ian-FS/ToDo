@@ -31,7 +31,7 @@ export default function TaskForm({
         }`}
         onClick={handleCreateTask}
       >
-        Criar <PlusCircle size={16} />
+        <PlusCircle size={35} />
       </button>
     </form>
   );

@@ -3,9 +3,12 @@ import Header from '../../components/Header';
 import style from './index.module.css';
 
 export default function DefaultLayout() {
+  const isAuthenticated = () => {
+    return localStorage.getItem('jwt-todo') !== null;
+  };
   return (
     <div>
-      <Header />
+      {isAuthenticated() ? <Header /> : null}
       <main className={style.main}>
         <Outlet />
       </main>

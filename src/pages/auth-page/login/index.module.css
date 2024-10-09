@@ -1,0 +1,98 @@
+.main {
+  max-width: 536px;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  padding: 0 2rem 2rem 2rem;
+  align-items: center;
+  background-color: var(--gray-00);
+}
+.loginWrapper {
+  width: 100%;
+  background: var(--gray-400);
+  border-radius: 10px;
+  padding: 50px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  margin-top: 2rem;
+}
+.logo {
+  margin: 0 auto;
+  width: 200px;
+}
+
+.loginWrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.inputWrapper {
+  border-bottom: 1px var(--gray-300) solid;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.inputWrapper:focus-within {
+  border-bottom: var(--purple-dark) solid 1px;
+  transition: color 0.9s ease;
+}
+.inputLogin {
+  color: var(--gray-100);
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  display: flex;
+  flex-grow: 1;
+}
+.inputLogin:focus {
+  outline: none;
+}
+
+.inputLogin:focus + .userIcon {
+  color: var(--purple);
+  transition: color 0.3s ease;
+}
+.iconButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.iconPhospor {
+  color: var(--gray-300);
+  width: 20px;
+  height: 20px;
+}
+.inputError {
+  color: var(--danger);
+}
+.errorMessage {
+  color: var(--danger);
+}
+.buttonForm {
+  padding: 8px;
+  border-radius: 20px;
+  background-color: var(--purple);
+  border: none;
+  font-weight: 600;
+  color: var(--gray-200);
+  cursor: pointer;
+  transition: color 0.1s ease;
+}
+.buttonForm:hover {
+  color: var(--gray-100);
+  background-color: var(--purple-dark);
+}
+.signUp {
+  color: var(--blue);
+  font-weight: 600;
+}
+.linkRegister {
+  color: var(--purple);
+  text-decoration: none;
+}
+.linkRegister:hover {
+  color: var(--purple-dark);
+}
