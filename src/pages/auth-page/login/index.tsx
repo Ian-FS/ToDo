@@ -2,7 +2,7 @@ import style from './index.module.css';
 import todo from '../../../assets/todo.svg';
 import { Eye, EyeClosed, User } from '@phosphor-icons/react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -37,6 +37,7 @@ type loginForm = Zod.infer<typeof loginFormSchema>;
 export default function LoginPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const {
     register,
@@ -64,7 +65,7 @@ export default function LoginPage() {
       .then((response) => {
         console.log('User profile', response.data.user);
         localStorage.setItem('jwt-todo', response.data.jwt);
-        window.location.reload();
+        navigate('/tasks');
       })
       .catch((error) => {
         if (error.response.status === 400) {
