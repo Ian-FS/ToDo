@@ -7,6 +7,7 @@ import { FormEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAuth } from '../../../context/useAuth';
 
 const loginFormSchema = z.object({
   identifier: z
@@ -38,6 +39,7 @@ export default function LoginPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
 
   const {
     register,
@@ -46,25 +48,25 @@ export default function LoginPage() {
   } = useForm<loginForm>({
     resolver: zodResolver(loginFormSchema),
   });
-  function handleOnSubmit(userLogin: loginForm) {
-    const { identifier, password } = userLogin;
-    handleLogin(identifier, password);
-  }
+  // function handleOnSubmit(userLogin: loginForm) {
+  //   handleLogin(userLogin);
+  // }
 
   function handlePasswordVisible(event: FormEvent) {
     event.preventDefault();
     setIsVisible((prevState) => !prevState);
   }
 
-  async function handleLogin(identifier: string, password: string) {
+  async function handleLogin(userData: loginForm) {
     await axios
-      .post('https://api-todo-list-production.up.railway.app/api/auth/local', {
-        identifier,
-        password,
-      })
+      .post(
+        'https://api-todo-list-production.up.railway.app/api/auth/local',
+        userData,
+      )
       .then((response) => {
-        console.log('User profile', response.data.user);
         localStorage.setItem('jwt-todo', response.data.jwt);
+        setIsAuthenticated(true);
+        console.log('User profile', response.data.user);
         navigate('/tasks');
       })
       .catch((error) => {
@@ -83,7 +85,7 @@ export default function LoginPage() {
     <div className={style.main}>
       <div className={style.loginWrapper}>
         <img className={style.logo} src={todo} alt="todo" />
-        <form onSubmit={handleSubmit(handleOnSubmit)}>
+        <form onSubmit={handleSubmit(handleLogin)}>
           <div className={style.inputWrapper}>
             <input
               type="text"

@@ -39,6 +39,7 @@ type registerForm = z.infer<typeof registerFormSchema>;
 export default function Register() {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const {
     register,
     handleSubmit,
@@ -47,9 +48,7 @@ export default function Register() {
     resolver: zodResolver(registerFormSchema),
   });
 
-  function handleOnSubmit(registerUserData: registerForm) {
-    handleRegister(registerUserData);
-  }
+  // function handleOnSubmit(registerUserData: registerForm) {}
 
   function handlePasswordVisible(event: FormEvent) {
     event.preventDefault();
@@ -73,6 +72,9 @@ export default function Register() {
         }
       })
       .catch((error) => {
+        if (error.response.status === 400) {
+          setErrorMessage('E-mail ou nome de usuário já estão em uso');
+        }
         console.log('An error occurred:', error.response);
       });
   }
@@ -80,7 +82,7 @@ export default function Register() {
     <div className={style.main}>
       <div className={style.registerWrapper}>
         <img className={style.logo} src={todo} alt="todo" />
-        <form onSubmit={handleSubmit(handleOnSubmit)}>
+        <form onSubmit={handleSubmit(handleRegister)}>
           <div className={style.inputWrapper}>
             <input
               type="text"
@@ -158,14 +160,15 @@ export default function Register() {
               </button>
             )}
           </div>
-          {errors.confirmPassword && (
-            <span className={style.errorMessage}>
-              {errors.confirmPassword.message}
-            </span>
+          {errorMessage && (
+            <span className={style.errorMessage}>{errorMessage}</span>
           )}
           <button className={style.buttonForm} type="submit">
             CADASTRAR
           </button>
+          {errors.email && (
+            <span className={style.errorMessage}>{errors.email.message}</span>
+          )}
           <div className={style.wrapperLinkLogin}>
             Já possui uma conta?{' '}
             <Link className={style.linkLogin} to={'/login'}>
