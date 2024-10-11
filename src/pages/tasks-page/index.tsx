@@ -27,11 +27,11 @@ export default function TasksPage() {
     useState(false);
   const [isSuccessfulDelete, setIsSuccessfulDelete] = useState(false);
   const token = localStorage.getItem('jwt-todo');
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  const tasksEndPoint = import.meta.env.VITE_TASKS_ENDPOINT;
+  const tasksURL = `${apiBaseUrl}${tasksEndPoint}`;
 
   useEffect(() => {
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-    const tasksEndPoint = import.meta.env.VITE_TASKS_ENDPOINT;
-    const tasksURL = `${apiBaseUrl}${tasksEndPoint}`;
     axios
       .get(tasksURL, {
         headers: {
@@ -69,28 +69,21 @@ export default function TasksPage() {
     };
 
     await axios
-      .post(
-        'https://api-todo-list-production.up.railway.app/api/tasks',
-        newTask,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      .post(tasksURL, newTask, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
       .then((res) => res.status === 201 && setIsSuccessfulPost(true));
     setDescription('');
   }
   async function handleDeleteTask(taskID: string) {
     await axios
-      .delete(
-        `https://api-todo-list-production.up.railway.app/api/tasks/${taskID}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      .delete(`${tasksURL}/${taskID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
       .then((res) => {
         if (res.status === 204) {
           console.log('deu certo');
@@ -107,15 +100,11 @@ export default function TasksPage() {
       },
     };
     await axios
-      .put(
-        `https://api-todo-list-production.up.railway.app/api/tasks/${task.id}`,
-        updateTask,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      .put(`${tasksURL}/${task.id}`, updateTask, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
       .then((res) => {
         if (res.status === 200) {
           console.log('deu certo');
@@ -127,7 +116,7 @@ export default function TasksPage() {
     const token = localStorage.getItem('jwt-todo');
     await axios
       .put(
-        `https://api-todo-list-production.up.railway.app/api/tasks/${task.id}`,
+        `${tasksURL}/${task.id}`,
         {
           data: {
             description: updateDescription,
