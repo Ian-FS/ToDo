@@ -1,5 +1,5 @@
 import style from './index.module.css';
-import todo from '../../../assets/todo.svg';
+import todo from '/todo.svg';
 import { Eye, EyeClosed, User } from '@phosphor-icons/react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -21,17 +21,7 @@ const loginFormSchema = z.object({
 
   password: z
     .string()
-    .min(8, { message: 'A senha deve ter pelo menos 8 caracteres.' }), // Comprimento mínimo da senha
-  // .regex(/[A-Z]/, {
-  //   message: 'A senha deve conter pelo menos uma letra maiúscula.',
-  // })
-  // .regex(/[a-z]/, {
-  //   message: 'A senha deve conter pelo menos uma letra minúscula.',
-  // })
-  // .regex(/[0-9]/, { message: 'A senha deve conter pelo menos um número.' })
-  // .regex(/[\W_]/, {
-  //   message: 'A senha deve conter pelo menos um caractere especial.',
-  // }),
+    .min(8, { message: 'A senha deve ter pelo menos 8 caracteres.' }), //
 });
 
 type loginForm = Zod.infer<typeof loginFormSchema>;
@@ -48,9 +38,6 @@ export default function LoginPage() {
   } = useForm<loginForm>({
     resolver: zodResolver(loginFormSchema),
   });
-  // function handleOnSubmit(userLogin: loginForm) {
-  //   handleLogin(userLogin);
-  // }
 
   function handlePasswordVisible(event: FormEvent) {
     event.preventDefault();
@@ -58,15 +45,15 @@ export default function LoginPage() {
   }
 
   async function handleLogin(userData: loginForm) {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+    const loginEndPoint = import.meta.env.VITE_LOGIN_ENDPOINT;
+    const loginURL = `${apiBaseUrl}${loginEndPoint}`;
+
     await axios
-      .post(
-        'https://api-todo-list-production.up.railway.app/api/auth/local',
-        userData,
-      )
+      .post(loginURL, userData)
       .then((response) => {
         localStorage.setItem('jwt-todo', response.data.jwt);
         setIsAuthenticated(true);
-        console.log('User profile', response.data.user);
         navigate('/tasks');
       })
       .catch((error) => {
@@ -96,7 +83,7 @@ export default function LoginPage() {
             <User className={style.iconPhospor} />
           </div>
           {errors.identifier && (
-            <span className={style.inputError}>
+            <span className={style.errorMessage}>
               {errors.identifier.message}
             </span>
           )}
@@ -124,14 +111,16 @@ export default function LoginPage() {
             )}
           </div>
           {errors.password && (
-            <span className={style.inputError}>{errors.password.message}</span>
-          )}
-          {errorMessage && (
-            <span className={style.errorMessage}>{errorMessage}</span>
+            <span className={style.errorMessage}>
+              {errors.password.message}
+            </span>
           )}
           <button className={style.buttonForm} type="submit">
             ENTRAR
           </button>
+          {errorMessage && (
+            <span className={style.errorMessage}>{errorMessage}</span>
+          )}
           <div className={style.signUp}>
             Não tem uma conta?{' '}
             <Link className={style.linkRegister} to={'/register'}>

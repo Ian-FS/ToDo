@@ -1,7 +1,7 @@
 import axios from 'axios';
 import style from './index.module.css';
 import { Envelope, Eye, EyeClosed, User } from '@phosphor-icons/react';
-import todo from '../../../assets/todo.svg';
+import todo from '/todo.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { z } from 'zod';
@@ -48,24 +48,22 @@ export default function Register() {
     resolver: zodResolver(registerFormSchema),
   });
 
-  // function handleOnSubmit(registerUserData: registerForm) {}
-
   function handlePasswordVisible(event: FormEvent) {
     event.preventDefault();
     setIsVisible((prevState) => !prevState);
   }
 
   async function handleRegister(registerUserData: registerForm) {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+    const registerEndPoint = import.meta.env.VITE_REGISTER_ENDPOINT;
+    const registerURL = `${apiBaseUrl}${registerEndPoint}`;
     const { username, email, password } = registerUserData;
     await axios
-      .post(
-        'https://api-todo-list-production.up.railway.app/api/auth/local/register',
-        {
-          username,
-          email,
-          password,
-        },
-      )
+      .post(registerURL, {
+        username,
+        email,
+        password,
+      })
       .then((response) => {
         if (response.status === 200) {
           navigate('/login');
@@ -160,14 +158,16 @@ export default function Register() {
               </button>
             )}
           </div>
-          {errorMessage && (
-            <span className={style.errorMessage}>{errorMessage}</span>
+          {errors.confirmPassword && (
+            <span className={style.errorMessage}>
+              {errors.confirmPassword.message}
+            </span>
           )}
           <button className={style.buttonForm} type="submit">
             CADASTRAR
           </button>
-          {errors.email && (
-            <span className={style.errorMessage}>{errors.email.message}</span>
+          {errorMessage && (
+            <span className={style.errorMessage}>{errorMessage}</span>
           )}
           <div className={style.wrapperLinkLogin}>
             Já possui uma conta?{' '}

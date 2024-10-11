@@ -1,5 +1,5 @@
 import style from './index.module.css';
-import toDo from '../../assets/todo.svg';
+import toDo from '/todo.svg';
 import LogOutButton from '../button-log-out';
 
 export default function Header() {

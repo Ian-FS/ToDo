@@ -57,6 +57,7 @@
 }
 .errorMessage {
   color: var(--danger);
+  margin-top: -10px;
 }
 
 .iconButton {

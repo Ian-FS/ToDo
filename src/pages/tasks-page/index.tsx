@@ -29,8 +29,11 @@ export default function TasksPage() {
   const token = localStorage.getItem('jwt-todo');
 
   useEffect(() => {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+    const tasksEndPoint = import.meta.env.VITE_TASKS_ENDPOINT;
+    const tasksURL = `${apiBaseUrl}${tasksEndPoint}`;
     axios
-      .get('https://api-todo-list-production.up.railway.app/api/tasks/', {
+      .get(tasksURL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +46,6 @@ export default function TasksPage() {
             done: task.done,
           };
         });
-        console.log(newTaskList);
         setTaskList(newTaskList);
 
         setIsSuccessfulPost(false);

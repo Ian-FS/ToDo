@@ -65,11 +65,9 @@
   width: 20px;
   height: 20px;
 }
-.inputError {
-  color: var(--danger);
-}
 .errorMessage {
   color: var(--danger);
+  margin-top: -10px;
 }
 .buttonForm {
   padding: 8px;
