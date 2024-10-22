@@ -4,6 +4,7 @@ import TasksPage from './pages/tasks-page';
 import LoginPage from './pages/auth-page/login';
 import Register from './pages/auth-page/register';
 import { useAuth } from './context/useAuth';
+import LoginRedirect from './pages/auth-page/loginRedirect/login-redirect';
 
 export default function Router() {
   const { isAuthenticated } = useAuth();
@@ -24,6 +25,7 @@ export default function Router() {
           element={isAuthenticated ? <TasksPage /> : <LoginPage />}
         />
         <Route path="/register" element={<Register />} />
+        <Route path="/loginredirect" element={<LoginRedirect />} />
       </Route>
     </Routes>
   );

@@ -43,7 +43,8 @@
   color: var(--gray-100);
   background: transparent;
   border: none;
-  padding: 8px 0;
+  padding: 8px 4px;
+  border-radius: 4px;
   display: flex;
   flex-grow: 1;
 }
@@ -72,7 +73,7 @@
 }
 .buttonForm {
   padding: 8px;
-  border-radius: 20px;
+  border-radius: 8px;
   background-color: var(--purple);
   border: none;
   font-weight: 600;

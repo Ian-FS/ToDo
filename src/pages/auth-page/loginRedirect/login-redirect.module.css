@@ -1,0 +1,10 @@
+.loadingWrapper {
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  color: #4ea8de;
+}

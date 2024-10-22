@@ -21,7 +21,8 @@ export default function LogOutButton() {
           type="submit"
           onClick={handleLogOut}
         >
-          Log out <SignOut className={style.iconPhospor} />
+          Sair
+          <SignOut className={style.iconPhospor} />
         </button>
       ) : null}
     </div>

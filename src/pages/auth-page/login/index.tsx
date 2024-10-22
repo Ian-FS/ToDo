@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../../../context/useAuth';
+import googleLogo from '../../../assets/Google-logo.svg';
 
 const loginFormSchema = z.object({
   identifier: z
@@ -30,6 +31,9 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const { setIsAuthenticated } = useAuth();
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  const loginEndPoint = import.meta.env.VITE_LOGIN_ENDPOINT;
+  const loginURL = `${apiBaseUrl}${loginEndPoint}`;
 
   const {
     register,
@@ -45,10 +49,6 @@ export default function LoginPage() {
   }
 
   async function handleLogin(userData: loginForm) {
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-    const loginEndPoint = import.meta.env.VITE_LOGIN_ENDPOINT;
-    const loginURL = `${apiBaseUrl}${loginEndPoint}`;
-
     await axios
       .post(loginURL, userData)
       .then((response) => {
@@ -128,6 +128,15 @@ export default function LoginPage() {
             </Link>
           </div>
         </form>
+        <span className={style.line} />
+        <a
+          className={style.buttonGoogleWrapper}
+          href={`${apiBaseUrl}/connect/google`}
+        >
+          <button className={style.buttonGoogle}>
+            <img src={googleLogo} alt="logo do google" /> Ou entre com o Google
+          </button>
+        </a>
       </div>
     </div>
   );

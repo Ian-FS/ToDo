@@ -58,6 +58,8 @@ export default function TasksPage() {
     isSuccessfulPatchChecked,
     isSuccessfulPatchDescription,
     isSuccessfulDelete,
+    tasksURL,
+    token,
   ]);
 
   async function handleCreateTask(event: React.FormEvent) {
